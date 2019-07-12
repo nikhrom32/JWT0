@@ -7,14 +7,16 @@ from rest_framework import generics
 from core.models import TestModel
 from core.serializers import TestModelSerializer
 from django.http import Http404
-from django.contrib.auth.models import User
-from core.serializers import UserSerializer
+
+
+# from django.contrib.auth.models import User
+# from core.serializers import UserSerializer
 
 
 class HelloView(APIView):
     permission_classes = (IsAuthenticated,)
 
-    def get(self, request):
+    def get(self, request, format=None):
         content = {'message': 'Yo ppl'}
         return Response(content)
 
@@ -33,8 +35,8 @@ class TestModelList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+    # def perform_create(self, serializer):
+    #     serializer.save(owner=self.request.user)
 
 
 class TestModelPerson(APIView):
